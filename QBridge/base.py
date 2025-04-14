@@ -1,22 +1,23 @@
 from abc import ABC, abstractmethod
+from typing import Optional
 
 class QueueClient(ABC):
     @abstractmethod
-    def connect(self):
+    def connect(self) -> None:
         pass
 
     @abstractmethod
-    def read_message(self):
+    def read_message(self) -> Optional[bytes]:
         pass
 
     @abstractmethod
-    def send_message(self, message):
+    def send_message(self, message: bytes) -> None:
         pass
 
     @abstractmethod
-    def disconnect(self):
+    def disconnect(self) -> None:
         pass
 
     @abstractmethod
-    def read_message_blocking(self, timeout=None):
+    def read_message_blocking(self, timeout: Optional[float] = None) -> Optional[bytes]:
         pass

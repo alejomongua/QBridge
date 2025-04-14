@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='message_queue_client',
+    name='QBridge',
     version='0.1.0',
     packages=find_packages(),
     install_requires=[
@@ -13,7 +13,7 @@ setup(
     description='A reusable message queue client abstraction for microservices.',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
-    url='https://github.com/yourusername/message_queue_client',
+    url='https://github.com/yourusername/QBridge',
     classifiers=[
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',

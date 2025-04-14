@@ -11,7 +11,7 @@ pip install -e .
 ## Usage Example
 
 ```python
-from message_queue_client.factory import get_queue_client
+from QBridge.factory import get_queue_client
 
 client = get_queue_client(
     service_type='rabbitmq',
