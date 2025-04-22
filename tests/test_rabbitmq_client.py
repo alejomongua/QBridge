@@ -43,7 +43,7 @@ class FakeChannel:
         if self.messages:
             message = self.messages.pop(0)
             # Create a simple fake method frame with a delivery_tag attribute
-            fake_method_frame = type("FakeMethodFrame", (), {"delivery_tag": 1})()
+            fake_method_frame = Basic.GetOk()
             fake_header_frame = BasicProperties()
             return fake_method_frame, fake_header_frame, message
         else:

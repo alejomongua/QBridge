@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Optional
+from typing import Optional, Any
 
 class QueueClient(ABC):
     @abstractmethod
@@ -20,4 +20,12 @@ class QueueClient(ABC):
 
     @abstractmethod
     def read_message_blocking(self, timeout: Optional[float] = None) -> Optional[bytes]:
+        pass
+
+    @abstractmethod
+    def ack(self, receipt_handle: Any) -> None:
+        pass
+
+    @abstractmethod
+    def reject(self, receipt_handle: Any, requeue: bool = True) -> None:
         pass

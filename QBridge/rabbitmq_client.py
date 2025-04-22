@@ -28,8 +28,11 @@ class RabbitMQClient(QueueClient):
             raise RuntimeError("Not connected to RabbitMQ")
             
         # Note: basic_get in pika actually returns Tuple[Basic.GetOk, BasicProperties, bytes] | Tuple[None, None, None]
-        method_frame, _, body = cast(Tuple[Optional[Basic.GetOk], Optional[BasicProperties], Optional[bytes]], 
+        response = cast(Tuple[Optional[Basic.GetOk], Optional[BasicProperties], Optional[bytes]], 
                                    self.channel.basic_get(queue=self.queue_name, auto_ack=False))
+        
+        print(f"Response: {response}")
+        method_frame, header_frame, body = response
         
         if isinstance(method_frame, Basic.GetOk) and isinstance(body, bytes):
             delivery_tag = cast(int, method_frame.delivery_tag)
@@ -82,3 +85,9 @@ class RabbitMQClient(QueueClient):
                 break
 
         return result[0]
+
+    def ack(self, receipt_handle: int) -> None:
+        self.channel.basic_ack(receipt_handle)
+
+    def reject(self, receipt_handle: int, requeue: bool = True) -> None:
+        self.channel.basic_nack(receipt_handle, requeue=requeue)
