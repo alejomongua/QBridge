@@ -4,7 +4,7 @@ import uuid
 from concurrent.futures import ThreadPoolExecutor, TimeoutError
 from typing import Callable, Any, Optional
 
-from base import QueueClient   # the abstract interface
+from .base import QueueClient   # the abstract interface
 
 
 logger = logging.getLogger(__name__)
@@ -84,7 +84,7 @@ class TaskManager:
             task_id = msg.get("task_id") or str(uuid.uuid4())
             attempt = int(msg.get("retry", 0))
 
-            future = self.executor.submit(self.handler, msg["payload"])
+            future = self.executor.submit(self.handler, msg)
             try:
                 future.result(timeout=self.task_timeout)
             except TimeoutError:
